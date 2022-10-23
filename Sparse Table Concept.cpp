@@ -57,6 +57,7 @@ int main() {
 	while (q--) {
 		cout << "Please enter the ranges of the query(inclusive) --> L R:";
 		cin >> l >> r;
+		l--; r--;
 		int k = log2(r - l + 1);
 		cout << min(sparse[l][k], sparse[r + 1 - (1 <<k)][k]) << endl;
 	}
