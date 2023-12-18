@@ -1,3 +1,2 @@
 # Competitive-Programming-Concepts
-This is meant to be a general collection of template files, commented and written in an easy to read way. This is meant to be used as a way of quickly understanding the 
-implementation of many competitive programming concepts.
+This is meant to be a collection of solutions to various hard competitive programming problems found on DMOJ(dmoj.ca), ranging from CCC, CCO to IOI and problems from other contests. Solutions are readable and meant to be easy to understand. Furthermore, algorithms folder stores neatly written and commented implementations of common algorithms/data structures used in competitive programming, and such files have been used in teaching others the use and implementation of said algorithms and data structures.
