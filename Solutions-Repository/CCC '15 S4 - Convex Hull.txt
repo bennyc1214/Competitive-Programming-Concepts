@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define pii pair<int, int>
+const int M = 1e4+5;
+int k, n, m, A, B;
+vector<pair<int, pair<int, int> > > adj[M];
+//adj[i]: pair<node, pair<cost, hull> >
+priority_queue<pair<pii, int>, vector<pair<pii, int>>, greater<pair<pii, int> > > pq;
+//pq: pair<pair<cost, hull>, node>
+int dists[M][M];
+
+void showdists() {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < k; j++) {
+            cout << dists[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+void dijkstra() {
+    memset(dists, 0x3f, sizeof(dists));
+    dists[A][0] = 0;
+    pq.push(make_pair(make_pair(0, 0), A));
+    while (!pq.empty()) {
+        //cout << "This is the size of the pq " << pq.size() << endl;
+        pair<pii, int> g = pq.top();
+        pq.pop();
+        if (dists[g.second][g.first.second]!=g.first.first) continue;
+        //cout << "Got past\n";
+        for (auto u : adj[g.second]) {
+            if (dists[u.first][u.second.second+g.first.second]>g.first.first+u.second.first) {
+                if (u.second.second+g.first.second>=k) continue;
+                //cout << "From " << g.second << " to " << u.first << " with a cost and hull of " << g.first.first+u.second.first << " " << u.second.second+g.first.second << endl;
+                dists[u.first][u.second.second+g.first.second] = g.first.first+u.second.first;
+                pq.push(make_pair(make_pair(g.first.first+u.second.first, u.second.second+g.first.second), u.first));
+            }
+        }
+    }
+}
+
+
+
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    cin >> k >> n >> m;
+    int a, b, t, h;
+    for (int i =0; i < m; i++) {
+        cin >> a >> b >> t >> h;
+        adj[a].push_back(make_pair(b, make_pair(t, h)));
+        adj[b].push_back(make_pair(a, make_pair(t, h)));
+    }
+    cin >> A >> B;
+    dijkstra();
+    int ans=INT_MAX;
+    //showdists();
+    for (int i =0; i <k; i++) {
+        ans = min(ans, dists[B][i]);
+    }
+    if (ans==1061109567) ans = -1;
+    cout << ans << endl;
+}
